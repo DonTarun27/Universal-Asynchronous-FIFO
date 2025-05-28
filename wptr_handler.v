@@ -7,7 +7,7 @@ module wptr_handler
      output reg full);
 
     wire [PTR_WIDTH-1:0] b_wptr_next = b_wptr + (w_en & !full);
-    wire [PTR_WIDTH-1:0] g_wptr_next = (b_wptr_next>>1)^b_wptr_next;
+    wire [PTR_WIDTH-1:0] g_wptr_next = (b_wptr_next>>1) ^ b_wptr_next;
     wire wfull = (g_wptr_next == {~g_rptr_sync[PTR_WIDTH-1:PTR_WIDTH-2], g_rptr_sync[PTR_WIDTH-3:0]});
 
     always@(posedge wclk or negedge wrst_n)
