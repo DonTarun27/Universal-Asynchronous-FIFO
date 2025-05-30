@@ -10,7 +10,7 @@ module univ_async_fifo
     localparam PTR_WIDTH = $clog2(FIFO_DEPTH) + 1; // Write/Read pointer have 1 extra bits at MSB
 
     // Declare a by-dimensional array to store the data
-	reg [DATA_WIDTH-1:0] fifo [0:FIFO_DEPTH-1];
+    reg [DATA_WIDTH-1:0] fifo [0:FIFO_DEPTH-1];
 
     wire [PTR_WIDTH-1:0] g_wptr_sync, g_rptr_sync;
     wire [PTR_WIDTH-1:0] b_wptr, b_rptr;
@@ -25,15 +25,15 @@ module univ_async_fifo
 
     always@(posedge wclk)
     begin
-	    if(w_en && !full)
-	        fifo[b_wptr[PTR_WIDTH-2:0]] <= data_in;
+        if(w_en && !full)
+            fifo[b_wptr[PTR_WIDTH-2:0]] <= data_in;
 	end
 
-	always @(posedge rclk or negedge rrst_n)
-	begin
-	    if(!rrst_n)
-		    data_out <= 0;
-		else if(r_en && !empty)
-	        data_out <= fifo[b_rptr[PTR_WIDTH-2:0]];
-	end
+    always @(posedge rclk or negedge rrst_n)
+    begin
+        if(!rrst_n)
+            data_out <= 0;
+        else if(r_en && !empty)
+            data_out <= fifo[b_rptr[PTR_WIDTH-2:0]];
+    end
 endmodule
