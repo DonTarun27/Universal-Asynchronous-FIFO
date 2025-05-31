@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 module univ_async_fifo_tb;
-    // Testbench variables
+    // Testbench Variables
     localparam FIFO_DEPTH = 8;
     localparam DATA_WIDTH = 32;
 
@@ -30,7 +30,7 @@ module univ_async_fifo_tb;
 
     task write_data(input [DATA_WIDTH-1:0] d_in);
     begin
-        @(posedge wclk); // sync to positive edge of clock
+        @(posedge wclk); // sync to positive edge of write clock
         w_en = 1;
         data_in = d_in;
         $display($time, " write_data data_in = %0d", data_in);
@@ -40,14 +40,14 @@ module univ_async_fifo_tb;
 
     task read_data();
     begin
-        @(posedge rclk);  // sync to positive edge of clock
+        @(posedge rclk);  // sync to positive edge of read clock
         r_en = 1;
         $display($time, " read_data data_out = %0d", data_out);
         #25 r_en = 0;
     end
     endtask
 
-    // Create the clock signal
+    // Create the write & read clock signal
     always #5 wclk = ~wclk;
     always #25 rclk = ~rclk;
 
