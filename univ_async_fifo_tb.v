@@ -50,8 +50,8 @@ module univ_async_fifo_tb;
     // Create the clock signal
     always #5 wclk = ~wclk;
     always #25 rclk = ~rclk;
-  
- // Create stimulus
+
+    // Create stimulus
     initial
     begin
         {wclk, rclk} = 0;
